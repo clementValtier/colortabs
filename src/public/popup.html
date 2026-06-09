@@ -1,35 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/popup.css">
   </head>
   <body>
-    <div id="container">
-      <label for="color-select">-Select a color for this domain-</label>
-      <input id="color-select" type="color" value="#FFFFFF">
-      <button id="add-mapping">save</button>
+
+    <div id="app">
+
+    <!-- Current domain -->
+    <section id="section-current">
+      <div id="host-row">
+        <div id="host-info">
+          <span id="host-label"></span>
+          <span id="match-info"></span>
+        </div>
+        <button id="remove-current" class="btn-icon" title="Remove this domain" hidden>✕</button>
+      </div>
+      <div class="color-row">
+        <div class="color-preview">
+          <div id="current-swatch" class="swatch-display"></div>
+          <input id="current-coloris" class="coloris-input" type="text" tabindex="-1">
+        </div>
+        <input id="current-hex" class="hex-input" type="text" maxlength="7" placeholder="#FFFFFF" spellcheck="false">
+        <button id="save-current" class="btn">Save</button>
+      </div>
+    </section>
+
+    <!-- Add / Edit domain -->
+    <section id="section-add">
+      <div id="add-section-header">
+        <span id="add-section-label" class="section-label">Add domain</span>
+        <button id="cancel-edit-btn" class="btn-icon" title="Cancel edit" hidden>✕</button>
+      </div>
+      <input id="new-domain-input" type="text" placeholder="example.com or .*regex.*" spellcheck="false">
+      <label id="regex-label"><input type="checkbox" id="new-regex"> Regex</label>
+      <div class="color-row">
+        <div class="color-preview">
+          <div id="new-swatch" class="swatch-display"></div>
+          <input id="new-coloris" class="coloris-input" type="text" tabindex="-1">
+        </div>
+        <input id="new-hex" class="hex-input" type="text" maxlength="7" placeholder="#FFFFFF" spellcheck="false">
+        <button id="add-domain-btn" class="btn">Add</button>
+      </div>
+    </section>
+
+    <!-- Saved domains -->
+    <section id="section-list">
+      <div class="section-label">Saved domains</div>
+      <ul id="domain-list"></ul>
+      <div id="domain-list-empty" hidden>No domains saved yet.</div>
+    </section>
+
     </div>
-    <div id="options">
-      <button id="go-to-options">Settings</button>
-    </div>
-    <script src="scripts/popup.js"></script>
+
+    <div id="save-error" hidden></div>
+
+    <script type="module" src="scripts/popup.js"></script>
   </body>
 </html>
-
-<style>
-* {
-  font-size: 14px;
-}
-#container {
-  margin: 10px 5px;
-}
-#add-mapping {
-  height: 22px;
-}
-#color-select {
-  vertical-align: middle;
-}
-#options {
-  margin-left: 5px;
-}
-</style>

@@ -3,33 +3,26 @@
   "icons": {
     "32": "icons/thumb.png"
   },
-
   "permissions": [
     "storage",
     "tabs",
-    "theme",
-    "downloads"
+    "theme"
   ],
-
   "background": {
-    "scripts": ["scripts/switcher.js"]
+    "scripts": ["scripts/switcher.js"],
+    "type": "module"
   },
-
   "browser_action": {
     "default_icon": "icons/thumb.png",
-    "default_title": "colors"
-  },
-
-  "sidebar_action": {
     "default_title": "ColorTabs",
-    "default_panel": "popup.html",
-    "default_icon": {
-      "32": "icons/thumb.png"
-    }
+    "default_popup": "popup.html"
   },
-
-  "options_ui": {
-    "page": "options.html",
-    "browser_style": true
+  "browser_specific_settings": {
+    "gecko": {
+      "data_collection_permissions": {
+        "required": ["none"],
+        "optional": []
+      }
+    }
   }
 }

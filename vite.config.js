@@ -3,9 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import terser from '@rollup/plugin-terser';
 
-// ---------------------------------------------------------------------------
-// Plugin : injection version/name/description depuis package.json
-// ---------------------------------------------------------------------------
+// Injects version/name/description from package.json into manifest
 function manifestPlugin() {
   return {
     name: 'manifest-plugin',
@@ -25,9 +23,6 @@ function manifestPlugin() {
   };
 }
 
-// ---------------------------------------------------------------------------
-// Config principale
-// ---------------------------------------------------------------------------
 export default defineConfig(({ mode }) => ({
   root: 'src',
   publicDir: path.resolve('src/public'),
@@ -37,7 +32,6 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       input: {
         popup:    path.resolve('src/scripts/popup.js'),
-        options:  path.resolve('src/scripts/options.js'),
         switcher: path.resolve('src/scripts/switcher.js'),
       },
       output: {
@@ -49,7 +43,5 @@ export default defineConfig(({ mode }) => ({
         : [],
     },
   },
-  plugins: [
-    manifestPlugin(),
-  ],
+  plugins: [manifestPlugin()],
 }));

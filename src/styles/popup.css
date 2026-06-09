@@ -1,0 +1,300 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 270px;
+  padding: 0;
+  font-size: 13px;
+  font-family: system-ui, sans-serif;
+}
+
+body.picker-open {
+  width: 519px; /* 248px picker + 1px separator + 270px app */
+}
+
+#app {
+  width: 270px;
+  flex-shrink: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  order: 1;
+}
+
+/* --- Sections --- */
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+section + section {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+}
+
+#add-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#cancel-edit-btn {
+  color: #aaa;
+  font-size: 12px;
+}
+#cancel-edit-btn:hover { color: #c00; background: #fee; }
+
+/* --- Current domain --- */
+#host-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+#host-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+#host-label {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#match-info {
+  font-size: 11px;
+  color: #999;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#remove-current {
+  color: #bbb;
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+#remove-current:hover { color: #c00; background: #f5f5f5; }
+
+/* --- Color row --- */
+.color-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* --- Color preview (swatch + transparent coloris trigger) --- */
+.color-preview {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.swatch-display {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  pointer-events: none; /* clicks pass through to coloris-input */
+}
+
+/* Transparent overlay — receives clicks and binds to Coloris */
+.coloris-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+}
+
+/* --- Hex text input --- */
+.hex-input {
+  flex: 1;
+  height: 28px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0 6px;
+  font-family: monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.hex-input:focus {
+  outline: none;
+  border-color: #888;
+}
+
+/* --- Buttons --- */
+.btn {
+  height: 28px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #f0f0f0;
+  padding: 0 10px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-family: system-ui, sans-serif;
+}
+.btn:hover { background: #e0e0e0; }
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+  line-height: 1;
+  font-size: 13px;
+  font-family: system-ui, sans-serif;
+}
+
+/* --- Add domain input --- */
+#new-domain-input {
+  width: 100%;
+  height: 28px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0 6px;
+}
+#new-domain-input:focus {
+  outline: none;
+  border-color: #888;
+}
+
+/* --- Regex checkbox --- */
+#regex-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* --- Domain list --- */
+#domain-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#domain-list li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 4px;
+  border-radius: 4px;
+}
+#domain-list li:hover { background: #f5f5f5; }
+#domain-list li.dragging { opacity: 0.4; }
+#domain-list li.drag-over {
+  border-top: 2px solid #007AFF;
+  margin-top: -2px;
+}
+
+.drag-handle {
+  color: #ccc;
+  font-size: 14px;
+  flex-shrink: 0;
+  cursor: grab;
+  line-height: 1;
+}
+.drag-handle:active { cursor: grabbing; }
+#domain-list li:hover .drag-handle { color: #aaa; }
+
+.domain-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.domain-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
+
+.domain-regex-badge {
+  font-size: 10px;
+  color: #888;
+  background: #f0f0f0;
+  border-radius: 3px;
+  padding: 1px 4px;
+  flex-shrink: 0;
+}
+
+.action-btn {
+  color: #bbb;
+  font-size: 12px;
+  visibility: hidden;
+}
+#domain-list li:hover .action-btn { visibility: visible; }
+.edit-domain:hover  { color: #555; background: #eee; }
+.delete-domain:hover { color: #c00; background: #fee; }
+
+#domain-list-empty {
+  font-size: 12px;
+  color: #aaa;
+  font-style: italic;
+}
+
+/* --- Save error --- */
+#save-error {
+  font-size: 11px;
+  color: #c00;
+  background: #fee;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+/* --- Coloris overrides --- */
+#clr-picker {
+  width: 248px !important;
+}
+
+body.picker-open #clr-picker.clr-open {
+  position: relative !important;
+  left: 0 !important;
+  top: 0 !important;
+  order: 0;
+  border-right: 1px solid #e0e0e0;
+  align-self: stretch;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}

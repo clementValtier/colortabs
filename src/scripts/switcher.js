@@ -1,57 +1,33 @@
-var host,
-    hostname,
-    port;
+import { contrastColor, findMatchingEntry } from './utils.js';
 
-browser.tabs.onUpdated.addListener( handleUpdated );
-browser.tabs.onActivated.addListener( handleActivated );
-browser.windows.onFocusChanged.addListener( handleActivated );
-
-function handleUpdated(tabId, changeInfo, tab) {
-  if ( changeInfo.status === 'complete' ) {
-    browser.tabs.query({ currentWindow: true, active: true }).then(getURL, onError);
-  }
-}
-
-function handleActivated( e ) {
-  browser.tabs.query({ currentWindow: true, active: true }).then(getURL, onError);
-}
-
-function getURL( tabs ) {
-  var currentURL = new URL( tabs[0].url );
-
-  host = currentURL.host;
-  hostname = currentURL.hostname;
-  port = currentURL.port;
-
-  switchColor();
-}
-
-function changeTheme( entry, mappings ) {
-  browser.theme.update({ colors: {
-    frame: mappings[ entry ],
-    backgroundtext: '#000',
-  }});
-}
-
-function switchColor() {
-  var colorMappings = browser.storage.local.get( 'colorMappings' );
-  colorMappings.then( function( item ) {
-    colorMappings = item.colorMappings || {};
-    if ( colorMappings[ host ] ) {
-      changeTheme( host, colorMappings );
-    } else if ( port.length !== 0 && colorMappings[ hostname ] ) {
-      changeTheme( hostname, colorMappings );
-    } else {
-      browser.theme.reset();
-    }
-  }, onError);
-}
-
-// Open sidebar from Toolbar Button (aka browser action)
-browser.browserAction.onClicked.addListener( function() {
-  browser.sidebarAction.open();
+browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
+  if (changeInfo.status === 'complete') applyThemeForActiveTab();
+});
+browser.tabs.onActivated.addListener(applyThemeForActiveTab);
+browser.windows.onFocusChanged.addListener(applyThemeForActiveTab);
+browser.storage.onChanged.addListener((changes, area) => {
+  if (area === 'local' && changes.colorMappings) applyThemeForActiveTab();
 });
 
-function onError(error) {
-  console.log(`Error: ${error}`);
+async function applyThemeForActiveTab() {
+  const tabs = await browser.tabs.query({ currentWindow: true, active: true }).catch(() => []);
+  const tab = tabs[0];
+  if (!tab) return;
+
+  let url;
+  try { url = new URL(tab.url); }
+  catch { browser.theme.reset(); return; }
+
+  const { colorMappings = [] } = await browser.storage.local.get('colorMappings');
+
+  const match = findMatchingEntry(url.host, colorMappings)
+    ?? (url.port ? findMatchingEntry(url.hostname, colorMappings) : null);
+
+  if (match) {
+    browser.theme.update({
+      colors: { frame: match.color, tab_background_text: contrastColor(match.color) }
+    });
+  } else {
+    browser.theme.reset();
+  }
 }
