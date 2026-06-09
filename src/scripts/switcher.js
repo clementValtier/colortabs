@@ -25,7 +25,13 @@ async function applyThemeForActiveTab() {
 
   if (match) {
     browser.theme.update({
-      colors: { frame: match.color, tab_background_text: contrastColor(match.color) }
+      colors: {
+        frame: match.color,
+        tab_background_text: contrastColor(match.color),
+        toolbar_top_separator: 'rgba(0,0,0,0)',
+        toolbar_bottom_separator: 'rgba(0,0,0,0)',
+        tab_line: 'rgba(0,0,0,0)',
+      }
     });
   } else {
     browser.theme.reset();
