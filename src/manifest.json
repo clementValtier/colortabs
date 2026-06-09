@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "icons": {
+    "32": "icons/thumb.png"
+  },
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "theme",
+    "downloads"
+  ],
+
+  "background": {
+    "scripts": ["scripts/switcher.js"]
+  },
+
+  "browser_action": {
+    "default_icon": "icons/thumb.png",
+    "default_title": "colors"
+  },
+
+  "sidebar_action": {
+    "default_title": "ColorTabs",
+    "default_panel": "popup.html",
+    "default_icon": {
+      "32": "icons/thumb.png"
+    }
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
+  }
+}

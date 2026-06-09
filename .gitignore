@@ -1,0 +1,11 @@
+# Dépendances
+node_modules/
+
+# Build Vite
+dist/
+
+# Archives web-ext
+build/
+
+# Divers
+.DS_Store

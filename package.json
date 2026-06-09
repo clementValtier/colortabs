@@ -1,0 +1,21 @@
+{
+  "name": "colortabs",
+  "displayName": "ColorTabs",
+  "version": "1.0",
+  "description": "Set the color of the browser window based on the current domain so you'll never forget which environment you're in.",
+  "scripts": {
+    "dev": "vite build --mode development --watch",
+    "build": "vite build",
+    "start": "vite build --mode development && concurrently \"npm run dev\" \"web-ext run --source-dir=dist\"",
+    "ext:lint": "web-ext lint --source-dir=dist",
+    "ext:build": "npm run build && web-ext build --source-dir=dist --artifacts-dir=build --overwrite-dest"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^1.0.0",
+    "concurrently": "^9.2.0",
+    "terser": "^5.39.0",
+    "vite": "^6.3.3",
+    "web-ext": "^8.4.0"
+  }
+}
