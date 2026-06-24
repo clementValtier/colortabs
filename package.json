@@ -1,7 +1,7 @@
 {
   "name": "colortabs",
   "displayName": "ColorTabs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Set the color of the browser window based on the current domain so you'll never forget which environment you're in.",
   "scripts": {
     "dev": "vite build --mode development --watch",

@@ -61,6 +61,7 @@ function refreshCurrentDomain() {
 function startEdit(index, { pattern, color, isRegex }) {
   editingIndex = index;
   addSectionLabel.textContent = `Edit: ${pattern}`;
+  addSectionLabel.title = `Edit: ${pattern}`;
   addDomainBtn.textContent = 'Update';
   cancelEditBtn.hidden = false;
   newDomainInput.value = pattern;
@@ -73,6 +74,7 @@ function startEdit(index, { pattern, color, isRegex }) {
 function cancelEdit() {
   editingIndex = null;
   addSectionLabel.textContent = 'Add domain';
+  addSectionLabel.removeAttribute('title');
   addDomainBtn.textContent = 'Add';
   cancelEditBtn.hidden = true;
   newDomainInput.value = '';

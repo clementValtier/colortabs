@@ -55,6 +55,14 @@ section + section {
   justify-content: space-between;
 }
 
+#add-section-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 #cancel-edit-btn {
   color: #aaa;
   font-size: 12px;
@@ -141,6 +149,7 @@ section + section {
 /* --- Hex text input --- */
 .hex-input {
   flex: 1;
+  min-width: 0;
   height: 28px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -262,9 +271,9 @@ section + section {
 .action-btn {
   color: #bbb;
   font-size: 12px;
-  visibility: hidden;
+  display: none;
 }
-#domain-list li:hover .action-btn { visibility: visible; }
+#domain-list li:hover .action-btn { display: inline-block; }
 .edit-domain:hover  { color: #555; background: #eee; }
 .delete-domain:hover { color: #c00; background: #fee; }
 
