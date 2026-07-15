@@ -37,6 +37,10 @@ async function applyThemeForWindow(windowId) {
         toolbar_top_separator: 'rgba(0,0,0,0)',
         toolbar_bottom_separator: 'rgba(0,0,0,0)',
         tab_line: 'rgba(0,0,0,0)',
+      },
+      properties: {
+        color_scheme: 'system',
+        content_color_scheme: 'system',
       }
     });
   } else {
